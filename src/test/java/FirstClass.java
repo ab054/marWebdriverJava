@@ -1,3 +1,4 @@
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class FirstClass {
@@ -148,13 +149,26 @@ public class FirstClass {
     public void testCountLetters() {
         String input = "hello world";
         int result = 0;
+        char letterParameter = 'm';
 
         char[] charArray = input.toCharArray();
 
         for (char eachChar : charArray) {
-            if (eachChar == 'l') result++;
+            if (eachChar == letterParameter) {
+                result++;
+            }
         }
         System.out.println(result);
     }
 
+    @Test
+    public void test_ActorCreation() {
+        Actor actor01 = new Actor(30, "Ivan", "Ivanov", 186, 80);
+        int actor01Age = actor01.getAge();
+
+        System.out.println(actor01.firstName);
+
+        System.out.println(actor01Age);
+        Assert.assertEquals(actor01Age, 30);
+    }
 }

@@ -31,4 +31,8 @@ public class Actor {
         System.out.println("I am singing");
     }
 
+    String tellName(){
+        return firstName;
+    }
+
 }

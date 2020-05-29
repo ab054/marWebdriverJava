@@ -1,18 +1,38 @@
+import jdk.nashorn.internal.objects.NativeString;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import static java.lang.Thread.sleep;
 
 public class GoogleSearchTest {
 
+    private static final String GOOGLE_MAIN_PAGE_URL = "https://www.google.com/";
+    private WebDriver driver;
+    private String resultsStatsText;
+    private By resultsStatsLocator = By.id("result-stats");
+    private By textInputLocator = By.cssSelector(".gLFyf");
+
+    @BeforeSuite
+    public void testSuiteSetup(){
+        System.setProperty("webdriver.gecko.driver", "src/test/resources/drivers/macOS/geckodriver");
+        driver = new FirefoxDriver();
+    }
+
+    @AfterSuite
+    public void tearDown(){
+        driver.quit();
+    }
+
 
     /*
         1. open the google.com webpage
-        2. in search box type query string and submit the search
+        2. in search box type a query and submit the search
         3. Verify that result page is showing up
         4. Verify that amount of results is more than 100
      */
@@ -20,37 +40,52 @@ public class GoogleSearchTest {
     //TODO: refactor this to step-by-step format
     @Test
     public void test0001() {
-        System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver.exe");
-        WebDriver driver = new FirefoxDriver();
-
         String queryString = "Portnov Computer School";
 
-        driver.get("https://www.google.com/");
+        openMainGooglePage();
+        typeAndSubmitQuery(queryString);
+        verifyResultsPage();
+        verifyAmountOfResults();
+    }
 
-        WebElement textInput = driver.findElement(By.cssSelector(".gLFyf"));
 
-        textInput.sendKeys(queryString);
-        textInput.submit();
+    @Test
+    public void test0002() {
+        String queryString = "Portnov School";
 
+        openMainGooglePage();
+        typeAndSubmitQuery(queryString);
+        verifyResultsPage();
+        verifyAmountOfResults();
+    }
+
+    private void verifyAmountOfResults() {
+        String[] stringArray = resultsStatsText.split(" ");
+        String amountOfResults = stringArray[1];
+        String amountOfResultsFixed = amountOfResults.replace(",", "");
+        int amountOfResultsParsed = Integer.parseInt(amountOfResultsFixed);
+        Assert.assertTrue(amountOfResultsParsed > 100);
+    }
+
+    private void verifyResultsPage() {
         //TODO: read about try and catch block
         try {
             sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        WebElement resultsStatsElement = driver.findElement(resultsStatsLocator);
+        resultsStatsText = resultsStatsElement.getText();
+        Assert.assertTrue(resultsStatsText.contains("results"));
+    }
 
-        WebElement resultsStatsElement = driver.findElement(By.id("result-stats"));
+    private void typeAndSubmitQuery(String queryString) {
+        WebElement textInput = driver.findElement(textInputLocator);
+        textInput.sendKeys(queryString);
+        textInput.submit();
+    }
 
-        String resultsStatsText = resultsStatsElement.getText();
-
-        String[] stringArray = resultsStatsText.split(" ");
-
-        String amountOfResults = stringArray[1];
-
-        String amountOfResultsFixed = amountOfResults.replace(",", "");
-
-        int amountOfResultsParsed = Integer.parseInt(amountOfResultsFixed);
-
-        Assert.assertTrue(amountOfResultsParsed > 100);
+    private void openMainGooglePage() {
+        driver.get(GOOGLE_MAIN_PAGE_URL);
     }
 }

@@ -1,4 +1,3 @@
-import jdk.nashorn.internal.objects.NativeString;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,7 +19,7 @@ public class GoogleSearchTest {
 
     @BeforeSuite
     public void testSuiteSetup(){
-        System.setProperty("webdriver.gecko.driver", "src/test/resources/drivers/macOS/geckodriver");
+        System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver.exe");
         driver = new FirefoxDriver();
     }
 

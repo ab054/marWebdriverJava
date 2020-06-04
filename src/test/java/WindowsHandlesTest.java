@@ -1,27 +1,24 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Set;
 
 import static java.lang.Thread.sleep;
 
-public class WindowsHandlesTest {
+public class WindowsHandlesTest extends TestBase {
 
     private static final String WINDOWS_MAIN_PAGE = "https://the-internet.herokuapp.com/windows";
-    WebDriver driver;
+
     private String originalWindowHandle;
     private String newWindowHandle;
 
     @BeforeSuite
-    public void testSuiteSetup(){
+    public void testSuiteSetup() {
         System.setProperty("webdriver.gecko.driver", "src/test/resources/drivers/macOS/geckodriver");
         driver = new FirefoxDriver();
     }
@@ -98,12 +95,6 @@ public class WindowsHandlesTest {
         By expectedElement = By.linkText("Click Here");
         WebElement webElement = waitForElement(expectedElement);
         webElement.click();
-    }
-
-    private WebElement waitForElement(By expectedElement) {
-       WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
-       WebElement foundedElement = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(expectedElement));
-       return foundedElement;
     }
 
     private void openWindowsPage() {

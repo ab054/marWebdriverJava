@@ -1,3 +1,4 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.BeforeSuite;
@@ -30,6 +31,8 @@ public class XpathTest {
         String xpath7 = "//*[text()=' Login']";
         String xpath8 = "//*[@name='username']/following::*[@type='password']";
         String xpath9 = "//*[@name='username']/preceding::*[@type='password']";
+
+        driver.findElement(By.xpath(xpath1));
 
 
     }

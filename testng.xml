@@ -1,0 +1,24 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite1" verbose="1">
+    <test name="Google Search Test 001">
+        <classes>
+            <class name="GoogleSearchTest">
+                <methods>
+                    <parameter name="paramKey1" value="Portnov Computer School"/>
+                    <include name="test0002"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Google Search Test 002">
+        <classes>
+            <class name="GoogleSearchTest">
+                <methods>
+                    <parameter name="paramKey1" value="Portnov School"/>
+                    <include name="test0002"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

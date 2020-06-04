@@ -1,31 +1,35 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
-import static java.lang.Thread.sleep;
 
-public class GoogleSearchTest {
+public class GoogleSearchTest extends TestBase {
 
     private static final String GOOGLE_MAIN_PAGE_URL = "https://www.google.com/";
-    private WebDriver driver;
     private String resultsStatsText;
     private By resultsStatsLocator = By.id("result-stats");
     private By textInputLocator = By.cssSelector(".gLFyf");
 
     @BeforeSuite
-    public void testSuiteSetup(){
+    public void testSuiteSetup() {
         System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver.exe");
+    }
+
+    @BeforeMethod
+    public void startTestMethod() {
         driver = new FirefoxDriver();
     }
 
-    @AfterSuite
-    public void tearDown(){
+    @AfterMethod
+    public void finishTestMethod() {
         driver.quit();
+    }
+
+    @AfterSuite
+    public void tearDown() {
+        System.out.println("ALL TESTS ARE FINISHED");
     }
 
 
@@ -48,8 +52,19 @@ public class GoogleSearchTest {
     }
 
 
+    @Parameters({"paramKey1"})
     @Test
-    public void test0002() {
+    public void test0002(String param1) {
+        String queryString = param1;
+
+        openMainGooglePage();
+        typeAndSubmitQuery(queryString);
+        verifyResultsPage();
+        verifyAmountOfResults();
+    }
+
+    @Test
+    public void test0003() {
         String queryString = "Portnov School";
 
         openMainGooglePage();
@@ -67,12 +82,7 @@ public class GoogleSearchTest {
     }
 
     private void verifyResultsPage() {
-        //TODO: read about try and catch block
-        try {
-            sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        waitForElement(resultsStatsLocator);
         WebElement resultsStatsElement = driver.findElement(resultsStatsLocator);
         resultsStatsText = resultsStatsElement.getText();
         Assert.assertTrue(resultsStatsText.contains("results"));

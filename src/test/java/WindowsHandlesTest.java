@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
+import pages.TestBase;
 
 import java.util.Set;
 

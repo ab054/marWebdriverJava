@@ -1,3 +1,5 @@
+package practice;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -5,7 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
-import pages.TestBase;
+import utils.TestBase;
 
 import java.util.Set;
 
@@ -94,7 +96,7 @@ public class WindowsHandlesTest extends TestBase {
     private void clickOnLink() {
         //TODO: change this to class attribute
         By expectedElement = By.linkText("Click Here");
-        WebElement webElement = waitForElement(expectedElement);
+        WebElement webElement = waitForElement(driver, expectedElement);
         webElement.click();
     }
 

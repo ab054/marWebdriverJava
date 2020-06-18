@@ -2,9 +2,7 @@ package tests;
 
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pages.GoogleResultsPage;
-import pages.MainGooglePage;
-import pages.TestBase;
+import utils.TestBase;
 
 
 public class GoogleSearchTest extends TestBase {
@@ -18,13 +16,10 @@ public class GoogleSearchTest extends TestBase {
     public void test0001() {
         String queryString = "Portnov Computer School";
 
-        MainGooglePage mainGooglePage = new MainGooglePage(driver);
-        GoogleResultsPage googleResultsPage = new GoogleResultsPage(driver);
-
-        mainGooglePage.open();
-        mainGooglePage.typeAndSubmitQuery(queryString);
-        googleResultsPage.verifyResultsPage();
-        googleResultsPage.verifyAmountOfResults();
+        google.mainPage.open();
+        google.mainPage.typeAndSubmitQuery(queryString);
+        google.resultsPage.verifyResultsPage();
+        google.resultsPage.verifyAmountOfResults();
     }
 
     @Parameters({"paramKey1"})
@@ -32,25 +27,19 @@ public class GoogleSearchTest extends TestBase {
     public void test0002(String param1) {
         String queryString = param1;
 
-        MainGooglePage mainGooglePage = new MainGooglePage(driver);
-        GoogleResultsPage googleResultsPage = new GoogleResultsPage(driver);
-
-        mainGooglePage.open();
-        mainGooglePage.typeAndSubmitQuery(queryString);
-        googleResultsPage.verifyResultsPage();
-        googleResultsPage.verifyAmountOfResults();
+        google.mainPage.open();
+        google.mainPage.typeAndSubmitQuery(queryString);
+        google.resultsPage.verifyResultsPage();
+        google.resultsPage.verifyAmountOfResults();
     }
 
     @Test
     public void test0003() {
         String queryString = "Portnov School";
 
-        MainGooglePage mainGooglePage = new MainGooglePage(driver);
-        GoogleResultsPage googleResultsPage = new GoogleResultsPage(driver);
-
-        mainGooglePage.open();
-        mainGooglePage.typeAndSubmitQuery(queryString);
-        googleResultsPage.verifyResultsPage();
-        googleResultsPage.verifyAmountOfResults();
+        google.mainPage.open();
+        google.mainPage.typeAndSubmitQuery(queryString);
+        google.resultsPage.verifyResultsPage();
+        google.resultsPage.verifyAmountOfResults();
     }
 }

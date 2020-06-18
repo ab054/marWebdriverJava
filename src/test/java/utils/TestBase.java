@@ -1,4 +1,4 @@
-package pages;
+package utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,10 +10,12 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import pages.GooglePOM;
 
 public class TestBase {
 
     public WebDriver driver;
+    public GooglePOM google;
 
     @BeforeSuite
     public void testSuiteSetup() {
@@ -23,6 +25,11 @@ public class TestBase {
     @BeforeMethod
     public void startTestMethod() {
         driver = new FirefoxDriver();
+        initGooglePages(driver);
+    }
+
+    private void initGooglePages(WebDriver driver) {
+        google = new GooglePOM(driver);
     }
 
     @AfterMethod
@@ -35,7 +42,7 @@ public class TestBase {
         System.out.println("ALL TESTS ARE FINISHED");
     }
 
-    public WebElement waitForElement(By expectedElement) {
+    public WebElement waitForElement(WebDriver driver, By expectedElement) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         WebElement foundedElement = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(expectedElement));
         return foundedElement;

@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import utils.CommonSteps;
 import utils.TestBase;
 
 public class GoogleResultsPage extends TestBase {
@@ -17,7 +18,7 @@ public class GoogleResultsPage extends TestBase {
     }
 
     public void verifyResultsPage() {
-        waitForElement(driver, resultsStatsLocator);
+        CommonSteps.waitForElement(driver, resultsStatsLocator);
         WebElement resultsStatsElement = driver.findElement(resultsStatsLocator);
         resultsStatsText = resultsStatsElement.getText();
         Assert.assertTrue(resultsStatsText.contains("results"));

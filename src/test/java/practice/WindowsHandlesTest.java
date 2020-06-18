@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
+import utils.CommonSteps;
 import utils.TestBase;
 
 import java.util.Set;
@@ -96,7 +97,7 @@ public class WindowsHandlesTest extends TestBase {
     private void clickOnLink() {
         //TODO: change this to class attribute
         By expectedElement = By.linkText("Click Here");
-        WebElement webElement = waitForElement(driver, expectedElement);
+        WebElement webElement = CommonSteps.waitForElement(driver, expectedElement);
         webElement.click();
     }
 

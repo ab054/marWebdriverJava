@@ -25,10 +25,18 @@ public class GoogleResultsPage extends TestBase {
     }
 
     public void verifyAmountOfResults() {
+        verifyAmountOfResults(100);
+    }
+
+    public void verifyAmountOfResults(int amountResults) {
+        Assert.assertTrue(getAmountOfResults() > amountResults, "amountOfResultsParsed < amountResults");
+    }
+
+    public int getAmountOfResults() {
         String[] stringArray = resultsStatsText.split(" ");
         String amountOfResults = stringArray[1];
         String amountOfResultsFixed = amountOfResults.replace(",", "");
         int amountOfResultsParsed = Integer.parseInt(amountOfResultsFixed);
-        Assert.assertTrue(amountOfResultsParsed > 100);
+        return amountOfResultsParsed;
     }
 }

@@ -1,7 +1,10 @@
 package uitests;
 
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import utils.ExceptionMessages;
 import utils.TestBase;
 
 
@@ -31,6 +34,28 @@ public class GoogleSearchTest extends TestBase {
         google.mainPage.typeAndSubmitQuery(queryString);
         google.resultsPage.verifyResultsPage();
         google.resultsPage.verifyAmountOfResults();
+    }
+
+    @DataProvider(name = "dataForGoogleTest")
+    public Object[][] createData1() {
+        return new Object[][]{
+                {"Portnov Computer School", 100},
+                {"Portnov School", 10000000},
+                {"Portnov Computer", 10000000}
+        };
+    }
+
+    @Test(dataProvider = "dataForGoogleTest")
+    public void test0003_DataProvider(String parameter1, int parameter2) {
+        String searchQuery = parameter1;
+        int expectedNumberOfResults = parameter2;
+
+        google.mainPage.open();
+        google.mainPage.typeAndSubmitQuery(searchQuery);
+        google.resultsPage.verifyResultsPage();
+
+        boolean isAmountOfResultsSufficient = google.resultsPage.getAmountOfResults() > expectedNumberOfResults;
+        Assert.assertTrue(isAmountOfResultsSufficient, ExceptionMessages.amountOfResultsError(expectedNumberOfResults));
     }
 
     @Test

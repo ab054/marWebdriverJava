@@ -2,7 +2,6 @@ package uitests;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import utils.ExceptionMessages;
 import utils.TestBase;
@@ -22,13 +21,23 @@ public class GoogleSearchTest extends TestBase {
         google.mainPage.open();
         google.mainPage.typeAndSubmitQuery(queryString);
         google.resultsPage.verifyResultsPage();
+        printPageTitle();
         google.resultsPage.verifyAmountOfResults();
+
     }
 
-    @Parameters({"paramKey1"})
+    public void printPageTitle() {
+        System.out.println("PAGE TITLE IS : " + driver.getTitle());
+    }
+
+    public void printPageTitle(String param) {
+        System.out.println("PAGE TITLE IS : " + driver.getTitle() + param);
+    }
+
+    //@Parameters({"paramKey1"})
     @Test
-    public void test0002(String param1) {
-        String queryString = param1;
+    public void test0002() {
+        String queryString = "Local Param";
 
         google.mainPage.open();
         google.mainPage.typeAndSubmitQuery(queryString);

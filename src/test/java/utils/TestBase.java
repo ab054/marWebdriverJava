@@ -37,4 +37,8 @@ public class TestBase {
     public void tearDown() {
         System.out.println("ALL TESTS ARE FINISHED");
     }
+
+    public void printPageTitle() {
+        System.out.println(driver.getTitle());
+    }
 }

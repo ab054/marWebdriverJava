@@ -2,10 +2,7 @@ package practice;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import utils.CommonSteps;
 import utils.TestBase;
@@ -21,16 +18,7 @@ public class WindowsHandlesTest extends TestBase {
     private String originalWindowHandle;
     private String newWindowHandle;
 
-    @BeforeSuite
-    public void testSuiteSetup() {
-        System.setProperty("webdriver.gecko.driver", "src/test/resources/drivers/macOS/geckodriver");
-        driver = new FirefoxDriver();
-    }
 
-    @AfterSuite
-    public void tearDown(){
-        driver.quit();
-    }
 
     //1. Open the browser
     //2. Go to "windows" page
